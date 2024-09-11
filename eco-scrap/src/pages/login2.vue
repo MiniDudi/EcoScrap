@@ -204,13 +204,4 @@
     color: #4caf50;
     text-decoration: underline !important;
   }
-  
-  .input-field {
-    transition: all 0.3s ease;
-  }
-  
-  .input-field:hover, .input-field:focus {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  }
   </style>
