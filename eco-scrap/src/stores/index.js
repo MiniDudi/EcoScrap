@@ -1,4 +1,7 @@
-// Utilities
 import { createPinia } from 'pinia'
+import { useAuthStore } from './auth'
 
-export default createPinia()
+const pinia = createPinia()
+
+export { useAuthStore }
+export default pinia
