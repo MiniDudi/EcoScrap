@@ -9,11 +9,11 @@
             </v-col>
 
             <!-- Texto -->
-            <v-col cols="4" class="d-flex flex-column justify-center mt-4">
-                <p class="primary-text" style="color: white; font-family: Khand; font-size: 25px; letter-spacing: 3px;">
+            <v-col cols="4" class="d-flex flex-column justify-center align-center mt-4">
+                <p class="primary-text text-center" style="color: white; font-family: Khand; font-size: 25px; letter-spacing: 3px;">
                     PLATAFORMA DE COTAÇÃO
                 </p>
-                <p class="development-text"
+                <p class="development-text text-center"
                     style="color: #5fd136; font-family: Khand; font-size: 40px; font-weight:600;">
                     DESENVOLVIMENTO
                 </p>
@@ -66,11 +66,11 @@
     <!-- News -->
     <v-container fluid class="pt-3">
         <v-row style="background: #0A1015;">
-            <v-col cols="7">
+            <v-col cols="8">
                 <span class="ml-5" style="color:white; font-weight: 700;">RELATORIO DE PRECO</span>
             </v-col>
-            <v-col cols="5" class="pa-0 d-flex align-center justify-center"
-                style="background-color: #F78386; clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 15% 100%, 0% 50%);">
+            <v-col cols="4" class="pa-0 d-flex align-center justify-center"
+                style="background-color: #F78386; clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 50%);">
                 <span style="color:white;">ULTIMA ATUALIZAÇÃO: {{ lastUpdate.toString() }}</span>
             </v-col>
         </v-row>
@@ -78,7 +78,7 @@
 
     <!-- Cards -->
     <v-container fluid class="py-0">
-        <v-row class="mt-3">
+        <v-row class="mt-3 mx-16">
             <v-col cols="4">
                 <v-sheet class="d-flex flex-column justify-space-between material-card cursor-pointer"
                     style="background-color: #F78386; height: 150px;">
