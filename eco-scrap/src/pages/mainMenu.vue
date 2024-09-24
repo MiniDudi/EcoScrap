@@ -10,7 +10,8 @@
 
             <!-- Texto -->
             <v-col cols="4" class="d-flex flex-column justify-center align-center mt-4">
-                <p class="primary-text text-center" style="color: white; font-family: Khand; font-size: 25px; letter-spacing: 3px;">
+                <p class="primary-text text-center"
+                    style="color: white; font-family: Khand; font-size: 25px; letter-spacing: 3px;">
                     PLATAFORMA DE COTAÇÃO
                 </p>
                 <p class="development-text text-center"
@@ -111,6 +112,18 @@
             </v-col>
         </v-row>
     </v-container>
+
+    <v-container class="pa-0">
+        <v-row>
+            <v-col cols="5" class="px-0 pt-10 pb-0 mt-8 mb-10 mr-10" style="background-color: #005D98;">
+                <v-data-table  :headers="headers" :items="materials" :items-per-page="5"
+                    class="elevation-1"></v-data-table>
+            </v-col>
+            <v-col cols="5" class="px-0 pt-10 pb-0 mb-10 mt-8 ml-10" style="background-color: #005D98;">
+                <v-data-table :headers="headers" :items="materials" :items-per-page="5" class="elevation-1"></v-data-table>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
@@ -120,13 +133,13 @@ export default {
             usuario: "dudu e juca",
             lastUpdate: Date.now(),
             materials: [
-                { name: "FERRO", price: 0, type: "Metal" },
-                { name: "PLÁSTICO", price: 0, type: "Plastico" },
-                { name: "METAL", price: 0, type: "Metal" },
-                { name: "ALUMÍNIO", price: 0, type: "Metal" },
-                { name: "PAPELÃO", price: 0, type: "Papel" },
-                { name: "LATÃO", price: 0, type: "Metal" },
-                { name: "COBRE", price: 0, type: "Metal" }
+                { name: "FERRO", price: 0.02, type: "Metal" },
+                { name: "PLÁSTICO", price: 0.01, type: "Plastico" },
+                { name: "METAL", price: 0.03, type: "Metal" },
+                { name: "ALUMÍNIO", price: 0.02, type: "Metal" },
+                { name: "PAPELÃO", price: 0.01, type: "Papel" },
+                { name: "LATÃO", price: 0.02, type: "Metal" },
+                { name: "COBRE", price: 0.03, type: "Metal" }
             ],
             selectedTab: 0
         }
