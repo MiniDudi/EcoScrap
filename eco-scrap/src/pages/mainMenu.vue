@@ -1,5 +1,4 @@
 <template>
-    <!-- Main -->
     <!-- NavBar -->
     <v-container fluid style="background-color: #0a1015; height: 14vh">
         <v-row no-gutters>
@@ -31,17 +30,25 @@
                 </v-row>
 
                 <!-- Login -->
-                <v-row no-gutters align="end">
-                    <span class="login-text">OLÁ {{ usuario }}</span>
-                </v-row>
+                 <v-container v-if="isAdmin">
+                     <v-row no-gutters align="center" class="d-flex">
+                         <v-col cols="8" class="d-flex justify-center align-center">
+                             <span class="login-text" style="color: white;">OLÁ {{ usuario }}</span>
+                            </v-col>
+                            <v-col cols="4" class="d-flex justify-center align-center">
+                                <v-btn class="" color="#5fd136" dark append-icon="mdi-logout">Sair</v-btn>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+
             </v-col>
         </v-row>
     </v-container>
 
     <!-- Menu -->
-    <v-container fluid class="pa-0">
+    <v-container fluid class="pa-0 ml-5 mr-5">
         <v-col cols="12" class="pa-0">
-            <v-card flat color="white" width="100%">
+            <v-card flat color="white" width="100%" rounded="100" outlined class="border-thin">
                 <v-card-text class="pa-2">
                     <div class="d-flex justify-space-around">
                         <span @click="selectTab(0)" :class="['tab-text', { 'font-weight-bold': selectedTab === 0 }]"
@@ -113,24 +120,28 @@
         </v-row>
     </v-container>
 
-    <v-container class="pa-0">
-        <v-row>
+    <!-- Tabelas -->
+    <v-container class="pa-0 d-flex justify-center" align-center>
+        <v-row class="justify-center">
             <v-col cols="5" class="px-0 pt-10 pb-0 mt-8 mb-10 mr-10" style="background-color: #005D98;">
-                <v-data-table  :headers="headers" :items="materials" :items-per-page="5"
+                <v-data-table :headers="headers" :items="materials" :items-per-page="5"
                     class="elevation-1"></v-data-table>
             </v-col>
-            <v-col cols="5" class="px-0 pt-10 pb-0 mb-10 mt-8 ml-10" style="background-color: #005D98;">
-                <v-data-table :headers="headers" :items="materials" :items-per-page="5" class="elevation-1"></v-data-table>
+            <v-col cols="5" class="px-0 pt-10 pb-0 mt-8 mb-10 ml-10" style="background-color: #005D98;">
+                <v-data-table :headers="headers" :items="materials" :items-per-page="5"
+                    class="elevation-1"></v-data-table>
             </v-col>
         </v-row>
     </v-container>
+
 </template>
 
 <script>
 export default {
     data() {
         return {
-            usuario: "dudu e juca",
+            usuario: "Admin",
+            isAdmin: false,
             lastUpdate: Date.now(),
             materials: [
                 { name: "FERRO", price: 0.02, type: "Metal" },
