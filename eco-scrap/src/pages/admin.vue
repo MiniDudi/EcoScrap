@@ -32,11 +32,9 @@
                 <!-- Login -->
                 <v-container v-if="isAdmin">
                     <v-row no-gutters align="center" class="d-flex">
-                        <v-col cols="8" class="d-flex justify-center align-center">
-                            <span class="login-text" style="color: white;">OLÁ {{ usuario }}</span>
-                        </v-col>
-                        <v-col cols="4" class="d-flex justify-center align-center">
-                            <v-btn class="" color="#5fd136" dark append-icon="mdi-logout">Sair</v-btn>
+                        <v-col cols="12" class="d-flex justify-end align-center">
+                            <v-btn class="mx-2" color="#5fd136" dark prepend-icon="mdi-arrow-left" @click="$router.push('/')">Voltar ao Menu</v-btn>
+                            <v-btn class="mx-2" color="#5fd136" dark append-icon="mdi-logout">Sair</v-btn>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -53,7 +51,6 @@
     </v-container>
 
     <!-- Input -->
-    <!-- /////// TESTAR - FAZER SEM CARD ///////  -->
     <v-container>
         <v-form @submit.prevent="updateMaterials">
             <v-row>
@@ -63,7 +60,7 @@
                 </v-col>
             </v-row>
             <v-col class="d-flex justify-center mt-5">
-                <v-btn color="primary" type="submit">Atualizar cotações</v-btn>
+                <v-btn color="green" type="submit">Atualizar cotações</v-btn>
             </v-col>
         </v-form>
     </v-container>
@@ -92,7 +89,8 @@ export default {
     methods: {
         updateMaterials() {
             const materialsObject = {
-                materials: this.localMaterials
+                materials: this.localMaterials,
+                lastUpdated: new Date(Date.now())
             }
             useMaterialStore().updateMaterials(materialsObject)
         },

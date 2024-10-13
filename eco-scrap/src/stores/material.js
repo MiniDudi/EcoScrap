@@ -3,7 +3,7 @@ import MaterialsController from '@/controllers/MaterialsController'
 
 export const useMaterialStore = defineStore('material', {
   state: () => ({
-    materials: {},
+    materials: [],
   }),
 
   actions: {

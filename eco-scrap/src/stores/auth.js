@@ -6,7 +6,6 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null,
     loading: true,
-    error: null,
   }),
   
   actions: {
@@ -14,9 +13,8 @@ export const useAuthStore = defineStore('auth', {
       try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password)
         this.user = userCredential.user
-        this.error = null
       } catch (error) {
-        this.error = error.message
+        alert('Erro no Login: Credenciais inválidas!')
       }
     },
     

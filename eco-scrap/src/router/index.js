@@ -8,10 +8,25 @@
 import { createRouter, createWebHistory } from 'vue-router/auto'
 import { setupLayouts } from 'virtual:generated-layouts'
 import { routes } from 'vue-router/auto-routes'
+import { useAuthStore } from '@/stores'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: setupLayouts(routes),
+})
+
+// Router guard for /admin
+router.beforeEach((to, from, next) => {
+  if (to.path === '/admin') {
+    // Check if user is admin
+    if (useAuthStore().user) {
+      next()
+    } else {
+      next('/login')
+    }
+  } else {
+    next()
+  }
 })
 
 // Workaround for https://github.com/vitejs/vite/issues/11804
