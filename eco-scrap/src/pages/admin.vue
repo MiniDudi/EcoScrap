@@ -2,7 +2,7 @@
 
     <!-- Title -->
     <v-container>
-        <p class="text-h3 mt-10 font-weight-medium" style="font-family: Khand">Painel de cotações</p>
+        <p class="text-h3 mt-5 font-weight-medium" style="font-family: Khand">Painel de cotações</p>
         <p class="text-h5 mt-3 font-weight" style="font-family: Khand">Aqui você poderá visualizar e alterar os valores
             dos materiais cadastrados</p>
     </v-container>
