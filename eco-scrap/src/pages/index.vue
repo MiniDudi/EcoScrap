@@ -64,36 +64,12 @@ export default {
       selectedTab: 0
     }
   },
+
   mounted() {
     useMaterialStore().getMaterials()
   },
-  created() {
-    if (this.$route.path == '/index') {
-      this.selectedTab = 0
-    } else if (this.$route.path == '/materials') {
-      this.selectedTab = 1
-    } else if (this.$route.path == '/complaint') {
-      this.selectedTab = 2
-    }
-  },
+  
   methods: {
-    selectTab(index) {
-      this.selectedTab = index;
-      switch (index) {
-        case 0:
-          this.$router.push('/');
-          break;
-        case 1:
-          this.$router.push('/materials');
-          break;
-        case 2:
-          this.$router.push('/complaint');
-          break;
-        default:
-          console.warn('Tab index out of range');
-          break;
-      }
-    },
     formatDateTime(date) {
       const dd = (date.getDate() < 10 ? '0' : '') + date.getDate();
       const mm = (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1);
@@ -103,6 +79,7 @@ export default {
       return `${dd}/${mm}/${yy} - ${hh}:${min}`;
     }
   },
+
   computed: {
     materials() {
       return useMaterialStore().materials

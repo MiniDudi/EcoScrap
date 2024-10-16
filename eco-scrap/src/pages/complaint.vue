@@ -1,8 +1,24 @@
 <template>
-
-
     <v-container>
-
+        <v-col cols="12">
+            <v-container>
+                <p class="text-h3 mt-10 font-weight-medium" style="font-family: Khand">Denúncias</p>
+                <p class="text-h5 mt-3 font-weight" style="font-family: Khand">Aqui você poderá enviar denúncias sobre
+                    organizações</p>
+            </v-container>
+            <v-container>
+                <v-row no-gutters>
+                    <v-label></v-label>
+                    <v-text-field label="E-mail" placeholder="Digite seu e-mail" variant="outlined"></v-text-field>
+                </v-row>
+                <v-row no-gutters>
+                    <v-text-field label="Título" variant="outlined"></v-text-field>
+                </v-row>
+                <v-row no-gutters>
+                    <v-textarea label="Descrição" variant="outlined"></v-textarea>
+                </v-row>
+            </v-container>
+        </v-col>
     </v-container>
 </template>
 <script>
@@ -10,36 +26,9 @@
 export default {
     data() {
         return {
-            selectedTab: 0
-        }
-    },
-    created() {
-        if (this.$route.path == '/index') {
-            this.selectedTab = 0
-        } else if (this.$route.path == '/materials') {
-            this.selectedTab = 1
-        } else if (this.$route.path == '/complaint') {
-            this.selectedTab = 2
         }
     },
     methods: {
-        selectTab(index) {
-            this.selectedTab = index;
-            switch (index) {
-                case 0:
-                    this.$router.push('/');
-                    break;
-                case 1:
-                    this.$router.push('/materials');
-                    break;
-                case 2:
-                    this.$router.push('/complaint');
-                    break;
-                default:
-                    console.warn('Tab index out of range');
-                    break;
-            }
-        },
     },
 
 }
