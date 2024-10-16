@@ -1,11 +1,25 @@
 <template>
   <v-app>
-    <v-main>
-      <router-view />
-    </v-main>
+    <template v-if="this.$route.path === '/login'">
+      <v-main>
+        <router-view />
+      </v-main>
+    </template>
+    <template v-else>
+        <v-main>
+          <appBar />
+          <router-view />
+        </v-main>
+    </template>
   </v-app>
 </template>
+<script>
+import appBar from '../src/components/appBar.vue';
 
-<script setup>
-  //
+export default {
+  name: 'App',
+  components: {
+    appBar,
+  }
+}
 </script>
