@@ -15,7 +15,6 @@ const router = createRouter({
   routes: setupLayouts(routes),
 })
 
-// Router guard for /admin
 router.beforeEach((to, from, next) => {
   if (to.path === '/admin') {
     // Check if user is admin

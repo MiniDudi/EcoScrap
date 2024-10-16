@@ -1,115 +1,84 @@
 <template>
-    <v-container fluid style="background-color: #0a1015; height: 14vh">
-        <v-row no-gutters>
-            <!-- Logo -->
-            <v-col cols="4" class="d-flex align-center">
-                <v-img src="../../public/logo.svg" cover max-height="100" max-width="250"></v-img>
-            </v-col>
-
-            <!-- Texto -->
-            <v-col cols="4" class="d-flex flex-column justify-center align-center mt-4">
-                <p class="primary-text text-center"
-                    style="color: white; font-family: Khand; font-size: 25px; letter-spacing: 3px;">
-                    PLATAFORMA DE COTAÇÃO
-                </p>
-                <p class="development-text text-center"
-                    style="color: #5fd136; font-family: Khand; font-size: 40px; font-weight:600;">
-                    DESENVOLVIMENTO
-                </p>
-            </v-col>
-
-            <!-- Site and Login -->
-            <v-col cols="4" class="d-flex flex-column justify-center align-end">
-                <!-- Site -->
-                <v-row no-gutters class="mb-2">
-                    <v-avatar class="mr-2" color="green" size="15" />
-                    <p class="site-text" style="color: white; font-family: Kdam Thmor Pro;">
-                        www.ecoscrap.com.br
-                    </p>
-                </v-row>
-
-                <!-- Login -->
-                <v-container v-if="!user">
-                    <v-row no-gutters align="center" class="d-flex">
-                        <v-col cols="12" class="d-flex justify-end align-center">
-                            <v-btn @click="$router.push('/login')" color="#5fd136" dark
-                                append-icon="mdi-logout">Entrar</v-btn>
-                        </v-col>
-                    </v-row>
-                </v-container>
-                <v-container v-else>
-                    <v-row no-gutters align="center" class="d-flex">
-                        <v-col cols="12" class="d-flex justify-end align-center">
-                            <v-btn @click="$router.push('/admin')" color="#5fd136" dark
-                                append-icon="mdi-calculator">Cotações</v-btn>
-                        </v-col>
-                    </v-row>
-                </v-container>
-
-            </v-col>
-        </v-row>
-    </v-container>
-
-    <!-- Menu -->
-    <v-container fluid class="pa-0 ml-5 mr-5">
-        <v-col cols="12" class="pa-0">
-            <v-card flat color="white" width="100%" rounded="100" outlined class="border-thin">
-                <v-card-text class="pa-2">
-                    <div class="d-flex justify-space-around">
-                        <span @click="selectTab(0)" :class="['tab-text', { 'font-weight-bold': selectedTab === 0 }]"
-                            class="cursor-pointer">
-                            Cotação
-                        </span>
-                        <v-divider vertical thickness="3"></v-divider>
-                        <span @click="selectTab(1)" :class="['tab-text', { 'font-weight-bold': selectedTab === 1 }]"
-                            class="cursor-pointer">
-                            Material
-                        </span>
-                        <v-divider vertical thickness="3"></v-divider>
-                        <span @click="selectTab(2)" :class="['tab-text', { 'font-weight-bold': selectedTab === 2 }]"
-                            class="cursor-pointer">
-                            Denúncias
-                        </span>
-                    </div>
-                </v-card-text>
-            </v-card>
-        </v-col>
-    </v-container>
-
-    <!-- News -->
-    <v-container fluid class="pt-3">
-        <v-row style="background: #0A1015;">
-            <v-col cols="8">
-                <span class="ml-5" style="color:white; font-weight: 700;">RELATORIO DE PRECO</span>
-            </v-col>
-            <v-col cols="4" class="pa-0 d-flex align-center justify-center"
-                style="background-color: #F78386; clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 50%);">
-                <span style="color:white;">ULTIMA ATUALIZAÇÃO: {{ formatDateTime(lastUpdate) }}</span>
-            </v-col>
-        </v-row>
-    </v-container>
-
     <v-container>
+        <p class="text-h3 mt-10 font-weight-medium" style="font-family: Khand">Materiais</p>
+        <p class="text-h5 mt-3 font-weight" style="font-family: Khand">Aqui você poderá visualizar os materiais que
+            trabalhamos</p>
+        <v-row class="mt-10">
+            <v-col cols="4">
+                <div style="border-radius: 20px; background-color: #5FD136; padding-left: 3vw; padding-right: 3vw;">
+                    <v-img src="../assets/ferro.svg" cover></v-img>
+                </div>
+            </v-col>
+            <v-col cols="8" class="d-flex justify-end">
+                <v-col cols="8">
+                    <h2>Ferro</h2>
+                    <p>Importância: O ferro é fundamental para a produção de aço, um material essencial para a
+                        construção de infraestruturas e máquinas.</p>
+                    <p>Encontrado em: Minas de ferro, sucata de aço.</p>
+                    <p>Preço por kg: <strong>R$ {{getPriceByName('FERRO')}}</strong>.</p>
+                </v-col>
+            </v-col>
 
+            <v-divider class="my-10"></v-divider>
+
+            <v-col cols="8" class="d-flex justify-start">
+                <v-col cols="8">
+                    <h2>Plástico</h2>
+                    <p>Importância: O plástico é amplamente utilizado em embalagens, reduzindo o desperdício de
+                        alimentos e
+                        facilitando o transporte.</p>
+                    <p>Encontrado em: Embalagens de alimentos, objetos domésticos.</p>
+                    <p>Preço por kg: <strong>R$ {{getPriceByName('PLÁSTICO')}}</strong>.</p>
+                </v-col>
+            </v-col>
+            <v-col cols="4">
+                <div style="border-radius: 20px; background-color: #F78386; padding-left: 3vw; padding-right: 3vw;">
+                    <v-img src="../assets/garrafa.svg" cover></v-img>
+                </div>
+            </v-col>
+
+            <v-divider class="my-10"></v-divider>
+
+            <v-col cols="4">
+                <div style="border-radius: 20px; background-color: #F7E386; padding-left: 3vw; padding-right: 3vw;">
+                    <v-img src="../assets/lata.svg" cover></v-img>
+                </div>
+            </v-col>
+            <v-col cols="8" class="d-flex justify-end">
+                <v-col cols="8">
+                    <h2>Alumínio</h2>
+                    <p>Importância: O alumínio é um material leve e resistente, amplamente utilizado em embalagens e
+                        componentes de aeronaves.</p>
+                    <p>Encontrado em: Latas de bebidas, componentes de aeronaves.</p>
+                    <p>Preço por kg: <strong>R$ {{getPriceByName('ALUMÍNIO')}}</strong>.</p>
+                </v-col>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 <script>
+import { useMaterialStore } from '@/stores/material';
+
 export default {
     data() {
         return {
-            selectedTab: 0
+            selectedTab: 1,
+            lastUpdate: new Date(Date.now()),
         }
     },
     created() {
-        if (this.$route.path == '/index') {
-            this.selectedTab = 0
-        } else if (this.$route.path == '/materials') {
-            this.selectedTab = 1
-        } else if (this.$route.path == '/complaint') {
-            this.selectedTab = 2
-        }
+        useMaterialStore().getMaterials()
     },
+
     methods: {
+        formatDateTime(date) {
+            const dd = (date.getDate() < 10 ? '0' : '') + date.getDate();
+            const mm = (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1);
+            const yy = date.getFullYear().toString().slice(-2);
+            const hh = date.getHours();
+            const min = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+            return `${dd}/${mm}/${yy} - ${hh}:${min}`;
+        },
         selectTab(index) {
             this.selectedTab = index;
             switch (index) {
@@ -127,13 +96,23 @@ export default {
                     break;
             }
         },
+        getPriceByName(name) {
+            const material = this.materials.find(material => material.name === name);
+            return material ? material.price : 'Preço não disponível';
+        }
     },
+    computed: {
+        materials() {
+            return useMaterialStore().materials
+        }
+    }
 }
 </script>
 <style scoped>
 .login-text {
     color: white;
     font-size: 20px;
+    font-family: Khand;
 }
 
 v-application {
@@ -146,17 +125,10 @@ v-application {
     margin: 0 20px;
     cursor: pointer;
     transition: font-weight 0.3s ease;
+    font-family: Khand;
 }
 
 .tab-text.font-weight-bold {
     font-weight: 700;
-}
-
-.material-card {
-    transition: transform 0.3s ease;
-}
-
-.material-card:hover {
-    transform: scale(1.05);
 }
 </style>
