@@ -38,13 +38,18 @@
   <!-- Tabelas -->
   <v-container fluid class="pa-0 d-flex justify-space-between" align-center>
     <v-row class="justify-center">
-      <v-col cols="11" class="pa-0 mt-8 mr-5">
+      <v-col cols="5" class="pa-0 mt-8">
         <v-card color="#005D98">
           <v-card-title class="text-h6 white--text py-2">
             RECICLAGEM PESO MEDIO (R$/kg)
           </v-card-title>
           <v-data-table :headers="headers" :items="materials" hide-default-footer></v-data-table>
         </v-card>
+      </v-col>
+      <v-col cols="5" class="mt-6">
+        <v-container>
+          <VueApexCharts type="line" :options="chartOptions" :series="series"></VueApexCharts>
+        </v-container>
       </v-col>
     </v-row>
   </v-container>
@@ -54,21 +59,123 @@
 <script>
 import { useAuthStore } from '@/stores';
 import { useMaterialStore } from '@/stores/material';
+import VueApexCharts from 'vue3-apexcharts'
 
 export default {
+  components: {
+    VueApexCharts,
+  },
   data() {
     return {
       usuario: "Admin",
       isAdmin: false,
       lastUpdate: new Date(Date.now()),
-      selectedTab: 0
+      selectedTab: 0,
+      localMaterials: [],
+      chartOptions: {
+        chart: {
+          height: 350,
+          type: 'line',
+          zoom: {
+            enabled: false
+          },
+          animations: {
+            enabled: true,
+            easing: 'easeinout',
+            speed: 800,
+            animateGradually: {
+              enabled: true,
+              delay: 150
+            },
+            dynamicAnimation: {
+              enabled: true,
+              speed: 350
+            }
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          width: 3,
+          curve: 'straight'
+        },
+        title: {
+          text: 'Montanha-Russa dos Preços de Materiais',
+          align: 'left'
+        },
+        grid: {
+          borderColor: '#e7e7e7',
+          row: {
+            colors: ['#f3f3f3', 'transparent'],
+            opacity: 0.5
+          },
+        },
+        markers: {
+          size: 1
+        },
+        xaxis: {
+    categories: ['01/10', '02/10', '03/10', '04/10', '05/10', '06/10', '07/10', '08/10'],
+    title: {
+      text: 'Data (Outubro)'
+    }
+  },
+        yaxis: {
+          title: {
+            text: 'Preço (R$)'
+          },
+          min: 0
+        },
+        // legend: {
+        //   position: 'top',
+        //   horizontalAlign: 'right',
+        //   floating: true,
+        //   offsetY: -25,
+        //   offsetX: -5
+        // },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return "R$ " + val.toFixed(2)
+            }
+          }
+        }
+      },
+      series: [{
+        name: "FERRO",
+        data: [0, 0.9, 0.95, 2.00, 1.45, 4.10, 0.75, 2.30]
+      },
+      {
+        name: "PLÁSTICO",
+        data: [0, 0.015, 0.03, 0.51, 0.025, 0.22, 0.035, 0.018]
+      },
+      {
+        name: "METAL",
+        data: [0, 2.10, 1.50, 3.90, 2.30, 1.70, 2.20, 1.80]
+      },
+      {
+        name: "ALUMÍNIO",
+        data: [0, 0.018, 0.025, 0.015, 0.03, 0.022, 0.028, 0.019]
+      },
+      {
+        name: "PAPELÃO",
+        data: [0, 0.008, 0.015, 0.005, 0.012, 0.009, 0.018, 0.007]
+      },
+      {
+        name: "LATÃO",
+        data: [0, 0.022, 0.018, 0.03, 0.025, 0.015, 0.028, 0.02]
+      },
+      {
+        name: "COBRE",
+        data: [0, 2.50, 3.20, 2.80, 3.50, 2.90, 3.80, 3.10]
+      }],
     }
   },
 
   mounted() {
     useMaterialStore().getMaterials()
   },
-  
+
   methods: {
     formatDateTime(date) {
       const dd = (date.getDate() < 10 ? '0' : '') + date.getDate();
@@ -87,8 +194,9 @@ export default {
     user() {
       return useAuthStore().user
     }
-  }
-}
+  },
+};
+
 </script>
 
 <style scoped>
