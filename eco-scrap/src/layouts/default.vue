@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <template v-if="this.$route.path === '/login'">
+    <template v-if="$route.path === '/login' || $route.path === '/'">
       <v-main>
         <router-view />
       </v-main>
