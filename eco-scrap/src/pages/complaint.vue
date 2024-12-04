@@ -34,14 +34,15 @@
                 </v-col>
             </v-row>
 
-            <v-row no-gutters>
-                <v-btn @click="sendComplaint()" color="green" type="submit">Atualizar cotações</v-btn>
+            <v-row class="d-flex justify-center" no-gutters>
+                <v-btn @click="sendComplaint()" color="red" type="submit">Denunciar</v-btn>
             </v-row>
-
         </v-col>
     </v-container>
 </template>
 <script>
+import AppFooter from '@/components/AppFooter.vue';
+
 
 export default {
     data() {
@@ -50,7 +51,7 @@ export default {
     },
     methods: {
         sendComplaint() {
-
+            alert('Denuncia enviada com sucesso!')
         }
     },
 

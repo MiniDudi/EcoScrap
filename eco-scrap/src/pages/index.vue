@@ -57,18 +57,8 @@
                     </v-col>
                 </v-row>
             </v-container>
-
-            <!-- Footer -->
-            <v-footer color="green" dark>
-                <v-container class="text-center">
-                    <v-row justify="center">
-                        <v-col cols="12" class="text-center">
-                            <p>&copy; 2024 EcoScrap. Todos os direitos reservados.</p>
-                        </v-col>
-                    </v-row>
-                </v-container>
-            </v-footer>
         </v-container>
+        <appFooter />
     </v-app>
 </template>
 

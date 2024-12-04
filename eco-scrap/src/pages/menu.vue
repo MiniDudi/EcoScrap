@@ -3,7 +3,7 @@
   <v-container fluid class="py-0">
     <v-row class="mt-3 mx-16">
       <v-col cols="4">
-        <v-sheet class="d-flex flex-column justify-space-between material-card cursor-pointer"
+        <v-sheet @click="$router.push('/materials')" class="d-flex flex-column justify-space-between material-card cursor-pointer"
           style="background-color: #F78386; height: 150px;">
           <v-img src="../assets/garrafa.svg" contain min-height="100" min-width="80" max-height="80" max-width="200"
             class="mt-2"></v-img>
@@ -13,7 +13,7 @@
         </v-sheet>
       </v-col>
       <v-col cols="4">
-        <v-sheet class="d-flex flex-column justify-space-between material-card cursor-pointer"
+        <v-sheet @click="$router.push('/materials')" class="d-flex flex-column justify-space-between material-card cursor-pointer"
           style="background-color: #F7E386; height: 150px;">
           <v-img src="../assets/lata.svg" contain min-height="80" min-width="80" max-height="80" max-width="200"
             class="mt-4"></v-img>
@@ -23,7 +23,7 @@
         </v-sheet>
       </v-col>
       <v-col cols="4">
-        <v-sheet class="d-flex flex-column justify-space-between material-card cursor-pointer"
+        <v-sheet @click="$router.push('/materials')" class="d-flex flex-column justify-space-between material-card cursor-pointer"
           style="background-color: #5FD136; height: 150px;">
           <v-img src="../assets/ferro.svg" contain min-height="80" min-width="80" max-height="80" max-width="200"
             class="mt-4"></v-img>
@@ -43,20 +43,32 @@
           <v-card-title class="text-h6 white--text py-2">
             RECICLAGEM PESO MEDIO (R$/kg)
           </v-card-title>
-          <v-data-table :headers="headers" :items="materials" hide-default-footer></v-data-table>
+          <v-data-table :headers="headers" :items="materials" hide-default-footer>
+            <template #item.price="{ item }">
+              R$ {{ item.price }}
+            </template>
+            <template #item.actions="{ item }">
+              <v-btn v-if="user" @click="$router.push('/admin')" icon color="transparent" flat>
+                <v-icon color="grey-darken-2" size="24">mdi-pencil</v-icon>
+              </v-btn>
+              <v-btn @click="convertMaterial(item)" icon color="transparent" flat>
+                <v-icon color="grey-darken-2" size="24">mdi-calculator</v-icon>
+              </v-btn>
+            </template>
+          </v-data-table>
         </v-card>
       </v-col>
-      <v-col cols="5" class="mt-6">
-        <v-container>
-          <VueApexCharts type="line" :options="chartOptions" :series="series"></VueApexCharts>
-        </v-container>
+      <v-col cols="5" class="mt-6" style="margin-left: 40px; margin-right: 40px;">
+        <VueApexCharts type="line" :options="chartOptions" :series="series"></VueApexCharts>
       </v-col>
     </v-row>
   </v-container>
 
+  <ConvertDialog @updateModalState="updateModal" :isDialogVisible="isConvertDialog" :material="selectedMaterial" />
 </template>
 
 <script>
+import ConvertDialog from '@/components/convertDialog.vue';
 import { useAuthStore } from '@/stores';
 import { useMaterialStore } from '@/stores/material';
 import VueApexCharts from 'vue3-apexcharts'
@@ -72,6 +84,14 @@ export default {
       lastUpdate: new Date(Date.now()),
       selectedTab: 0,
       localMaterials: [],
+      selectedMaterial: null,
+      isConvertDialog: false,
+      headers: [
+        { title: 'Nome', value: 'name' },
+        { title: 'Tipo', value: 'type' },
+        { title: 'Preço', value: 'price' },
+        { title: 'Ações', value: 'actions' },
+      ],
       chartOptions: {
         chart: {
           height: 350,
@@ -115,11 +135,11 @@ export default {
           size: 1
         },
         xaxis: {
-    categories: ['01/10', '02/10', '03/10', '04/10', '05/10', '06/10', '07/10', '08/10'],
-    title: {
-      text: 'Data (Outubro)'
-    }
-  },
+          categories: ['01/10', '02/10', '03/10', '04/10', '05/10', '06/10', '07/10', '08/10'],
+          title: {
+            text: 'Data (Outubro)'
+          }
+        },
         yaxis: {
           title: {
             text: 'Preço (R$)'
@@ -172,8 +192,8 @@ export default {
     }
   },
 
-  mounted() {
-    useMaterialStore().getMaterials()
+  async mounted() {
+   await useMaterialStore().getMaterials()
   },
 
   methods: {
@@ -184,6 +204,17 @@ export default {
       const hh = date.getHours();
       const min = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
       return `${dd}/${mm}/${yy} - ${hh}:${min}`;
+    },
+    convertMaterial(material) {
+      this.selectedMaterial = material
+      console.log(this.selectedMaterial);
+      
+      this.isConvertDialog = true
+    },
+    updateModal(newValue) {
+      console.log(newValue);
+      
+      this.isConvertDialog = newValue
     }
   },
 

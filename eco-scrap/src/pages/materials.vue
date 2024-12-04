@@ -55,8 +55,10 @@
             </v-col>
         </v-row>
     </v-container>
+    <appFooter />
 </template>
 <script>
+import AppFooter from '@/components/AppFooter.vue';
 import { useMaterialStore } from '@/stores/material';
 
 export default {

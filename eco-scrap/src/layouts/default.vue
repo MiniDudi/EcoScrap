@@ -14,6 +14,7 @@
   </v-app>
 </template>
 <script>
+import AppFooter from '@/components/AppFooter.vue';
 import appBar from '../components/appBar.vue';
 
 export default {
