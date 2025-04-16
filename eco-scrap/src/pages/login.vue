@@ -33,6 +33,10 @@
               <div class="text-center">
                 <a href="#" class="text-decoration-none eco-link">Esqueceu a senha?</a>
               </div>
+
+              <div class="text-center">
+                <a href="/register" class="text-decoration-none eco-link">Registre-se já!</a>
+              </div>
             </v-form>
           </v-card-text>
         </v-card>
