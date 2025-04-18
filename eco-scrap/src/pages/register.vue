@@ -17,14 +17,14 @@
                         <h1 class="text-h3 font-weight-bold text-center eco-primary--text mb-6">EcoScrap</h1>
                         <p class="text-subtitle-1 text-center mb-8">Registro de acesso à plataforma</p>
 
-                        <v-form @submit.prevent="handleLogin">
-                            <v-text-field v-model="username" label="Usuário" prepend-inner-icon="mdi-account"
+                        <v-form @submit.prevent="handleRegister">
+                            <v-text-field v-model="userData.username" label="Usuário" prepend-inner-icon="mdi-account"
                                 variant="outlined" color="eco-primary" class="mb-4 input-field"></v-text-field>
 
-                            <v-text-field v-model="email" label="E-mail" prepend-inner-icon="mdi-account"
+                            <v-text-field v-model="userData.email" label="E-mail" prepend-inner-icon="mdi-account"
                                 variant="outlined" color="eco-primary" class="mb-4 input-field"></v-text-field>
 
-                            <v-text-field v-model="password" label="Senha" prepend-inner-icon="mdi-lock"
+                            <v-text-field v-model="userData.password" label="Senha" prepend-inner-icon="mdi-lock"
                                 :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                                 :type="showPassword ? 'text' : 'password'"
                                 @click:append-inner="showPassword = !showPassword" variant="outlined"
@@ -43,7 +43,8 @@
                             </v-btn>
 
                             <div class="text-center">
-                                <p class="text-decoration-none eco">Já tem login? <a href="/login" class="text-decoration-none eco-link"> Clique Aqui!</a></p> 
+                                <p class="text-decoration-none eco">Já tem login? <a href="/login"
+                                        class="text-decoration-none eco-link"> Clique Aqui!</a></p>
                             </div>
                         </v-form>
                     </v-card-text>
@@ -59,22 +60,24 @@ import { useAuthStore } from '@/stores/auth'
 export default {
     data() {
         return {
-            username: '',
-            password: '',
-            email: '',
+            userData: {
+                username: '',
+                password: '',
+                email: '',
+            },
             confirmPassword: '',
             showPassword: false,
             showPassword2: false
         }
     },
     methods: {
-        async handleLogin() {
+        async handleRegister() {
             const authStore = useAuthStore()
             try {
-                await authStore.login(this.username, this.password)
+                await authStore.register(this.userData)
                 if (authStore.isAuthenticated) {
-                    alert('Login successful')
-                    this.$router.push('/admin')
+                    alert('Registration successful')
+                    this.$router.push('/login')
                 }
             } catch (error) {
                 console.error('Login failed:', error)
