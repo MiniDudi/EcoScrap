@@ -3,7 +3,8 @@
   <v-container fluid class="py-0">
     <v-row class="mt-3 mx-16">
       <v-col cols="4">
-        <v-sheet @click="$router.push('/materials')" class="d-flex flex-column justify-space-between material-card cursor-pointer"
+        <v-sheet @click="$router.push('/materials')"
+          class="d-flex flex-column justify-space-between material-card cursor-pointer"
           style="background-color: #F78386; height: 150px;">
           <v-img src="../assets/garrafa.svg" contain min-height="100" min-width="80" max-height="80" max-width="200"
             class="mt-2"></v-img>
@@ -13,7 +14,8 @@
         </v-sheet>
       </v-col>
       <v-col cols="4">
-        <v-sheet @click="$router.push('/materials')" class="d-flex flex-column justify-space-between material-card cursor-pointer"
+        <v-sheet @click="$router.push('/materials')"
+          class="d-flex flex-column justify-space-between material-card cursor-pointer"
           style="background-color: #F7E386; height: 150px;">
           <v-img src="../assets/lata.svg" contain min-height="80" min-width="80" max-height="80" max-width="200"
             class="mt-4"></v-img>
@@ -23,7 +25,8 @@
         </v-sheet>
       </v-col>
       <v-col cols="4">
-        <v-sheet @click="$router.push('/materials')" class="d-flex flex-column justify-space-between material-card cursor-pointer"
+        <v-sheet @click="$router.push('/materials')"
+          class="d-flex flex-column justify-space-between material-card cursor-pointer"
           style="background-color: #5FD136; height: 150px;">
           <v-img src="../assets/ferro.svg" contain min-height="80" min-width="80" max-height="80" max-width="200"
             class="mt-4"></v-img>
@@ -59,7 +62,7 @@
         </v-card>
       </v-col>
       <v-col cols="5" class="mt-6" style="margin-left: 40px; margin-right: 40px;">
-        <VueApexCharts type="line" :options="chartOptions" :series="series"></VueApexCharts>
+        <VueApexCharts type="line" ref="chart" :options="chartOptions" :series="series"></VueApexCharts>
       </v-col>
     </v-row>
   </v-container>
@@ -121,7 +124,7 @@ export default {
           curve: 'straight'
         },
         title: {
-          text: 'Montanha-Russa dos Preços de Materiais',
+          text: 'Grafico dos Preços de Materiais',
           align: 'left'
         },
         grid: {
@@ -135,10 +138,9 @@ export default {
           size: 1
         },
         xaxis: {
-          categories: ['01/10', '02/10', '03/10', '04/10', '05/10', '06/10', '07/10', '08/10'],
-          title: {
-            text: 'Data (Outubro)'
-          }
+          labels: { show: false }, // Ocultar rótulos
+          axisTicks: { show: false }, // Ocultar ticks
+          axisBorder: { show: false }, // Ocultar borda
         },
         yaxis: {
           title: {
@@ -161,42 +163,21 @@ export default {
           }
         }
       },
-      series: [{
-        name: "FERRO",
-        data: [0, 0.9, 0.95, 2.00, 1.45, 4.10, 0.75, 2.30]
-      },
-      {
-        name: "PLÁSTICO",
-        data: [0, 0.015, 0.03, 0.51, 0.025, 0.22, 0.035, 0.018]
-      },
-      {
-        name: "METAL",
-        data: [0, 2.10, 1.50, 3.90, 2.30, 1.70, 2.20, 1.80]
-      },
-      {
-        name: "ALUMÍNIO",
-        data: [0, 0.018, 0.025, 0.015, 0.03, 0.022, 0.028, 0.019]
-      },
-      {
-        name: "PAPELÃO",
-        data: [0, 0.008, 0.015, 0.005, 0.012, 0.009, 0.018, 0.007]
-      },
-      {
-        name: "LATÃO",
-        data: [0, 0.022, 0.018, 0.03, 0.025, 0.015, 0.028, 0.02]
-      },
-      {
-        name: "COBRE",
-        data: [0, 2.50, 3.20, 2.80, 3.50, 2.90, 3.80, 3.10]
-      }],
+      series: []
     }
   },
 
   async mounted() {
-   await useMaterialStore().getMaterials()
+    await useMaterialStore().getMaterials()
+    await useMaterialStore().getHistory()
+    console.log(this.history);
+    this.configChart()
   },
 
   methods: {
+    updateModal(isDialogVisible) {
+      this.isConvertDialog = isDialogVisible   
+    },
     formatDateTime(date) {
       const dd = (date.getDate() < 10 ? '0' : '') + date.getDate();
       const mm = (date.getMonth() < 9 ? '0' : '') + (date.getMonth() + 1);
@@ -208,19 +189,60 @@ export default {
     convertMaterial(material) {
       this.selectedMaterial = material
       console.log(this.selectedMaterial);
-      
+
       this.isConvertDialog = true
     },
-    updateModal(newValue) {
-      console.log(newValue);
-      
-      this.isConvertDialog = newValue
+    configChart() {
+      const pricesByName = {};
+
+      this.history.forEach(entry => {
+        entry.price.forEach(item => {
+          if (!pricesByName[item.name]) {
+            pricesByName[item.name] = { prices: [], dates: [] };
+          }
+          pricesByName[item.name].prices.push(parseFloat(item.price));
+          pricesByName[item.name].dates.push(entry.date); // Adicionar a data correspondente
+        });
+      });
+
+      this.series = Object.keys(pricesByName).map(name => ({
+        name,
+        data: pricesByName[name].prices
+      }));
+
+      const xAxisDates = Object.values(pricesByName)[0]?.dates || [];
+
+      this.$refs.chart.updateOptions(
+        {
+          xaxis: {
+            categories: xAxisDates, 
+            labels: {
+              show: true,
+              rotate: -45,
+              formatter: val => {
+                const date = new Date(val);
+                return date.toLocaleDateString('pt-BR', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: '2-digit',
+                });
+              },
+            },
+          },
+          series: this.series,
+        },
+        false, 
+        true 
+      );
     }
   },
 
   computed: {
     materials() {
       return useMaterialStore().materials
+    },
+    history() {
+      return useMaterialStore().history
     },
     user() {
       return useAuthStore().user

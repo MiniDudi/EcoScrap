@@ -26,7 +26,7 @@
                 </v-col>
             </v-card-text>
             <v-col cols="12" class="d-flex flex-wrap justify-space-around">
-                <v-btn class="mx-4 px-10" color="red" variant="tonal" @click="$emit('updateModalState', false)">
+                <v-btn class="mx-4 px-10" color="red" variant="tonal" @click="onFormReset">
                     Sair
                 </v-btn>
             </v-col>

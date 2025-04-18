@@ -56,7 +56,7 @@
             <v-card flat color="white" width="100%" rounded="100" outlined class="border-thin">
                 <v-card-text class="pa-2">
                     <div class="d-flex justify-space-around">
-                        <span @click="selectTab(0), this.$router.push('/')"
+                        <span @click="selectTab(0), this.$router.push('/menu')"
                             :class="['tab-text', { 'font-weight-bold': selectedTab === 0 }]" class="cursor-pointer">
                             Cotação
                         </span>

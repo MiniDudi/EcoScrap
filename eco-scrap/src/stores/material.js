@@ -4,6 +4,7 @@ import MaterialsController from '@/controllers/MaterialsController'
 export const useMaterialStore = defineStore('material', {
   state: () => ({
     materials: [],
+    history: []
   }),
 
   actions: {
@@ -18,6 +19,20 @@ export const useMaterialStore = defineStore('material', {
         }
       } catch (error) {
         console.error('Error fetching materials:', error)
+      }
+    },
+
+    async getHistory() {
+      const controller = new MaterialsController()
+      try {
+        const document = await controller.getHistory()
+        if (document.exists()) {
+          this.history = document.data().history
+        } else {
+          console.log('No history found')
+        }
+      } catch (error) {
+        console.error('Error fetching history:', error)
       }
     },
 
