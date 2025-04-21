@@ -39,10 +39,17 @@
                 </v-container>
                 <v-container v-else>
                     <v-row no-gutters align="center" class="d-flex">
-                        <v-col cols="12" class="d-flex justify-end align-center">
+
+                        <v-col cols="8" class="d-flex justify-end align-center">
+                            <v-btn @click="$router.push('/materialRegister')" color="#5fd136" dark
+                                append-icon="mdi-plus">Solicitar Coleta</v-btn>
+                        </v-col>
+
+                        <v-col cols="4" class="d-flex justify-end align-center">
                             <v-btn @click="$router.push('/admin')" color="#5fd136" dark
                                 append-icon="mdi-calculator">Cotações</v-btn>
                         </v-col>
+
                     </v-row>
                 </v-container>
 
@@ -66,8 +73,8 @@
                             Material
                         </span>
                         <v-divider vertical thickness="3"></v-divider>
-                        <span @click="selectTab(2), this.$router.push('/complaint')" :class="['tab-text', { 'font-weight-bold': selectedTab === 2 }]"
-                            class="cursor-pointer">
+                        <span @click="selectTab(2), this.$router.push('/complaint')"
+                            :class="['tab-text', { 'font-weight-bold': selectedTab === 2 }]" class="cursor-pointer">
                             Denúncias
                         </span>
                     </div>
