@@ -21,7 +21,7 @@
                             <v-text-field v-model="userData.username" label="Usuário" prepend-inner-icon="mdi-account"
                                 variant="outlined" color="eco-primary" class="mb-4 input-field"></v-text-field>
 
-                            <v-text-field v-model="userData.email" label="E-mail" prepend-inner-icon="mdi-account"
+                            <v-text-field v-model="userData.email" label="E-mail" prepend-inner-icon="mdi-email"
                                 variant="outlined" color="eco-primary" class="mb-4 input-field"></v-text-field>
 
                             <v-text-field v-model="userData.password" label="Senha" prepend-inner-icon="mdi-lock"
