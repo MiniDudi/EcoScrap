@@ -16,7 +16,7 @@
                     <div class="text-subtitle-1 text-medium-emphasis">Título do material</div>
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field v-model="newMaterial.titulo" variant="outlined" prepend-icon="mdi-pencil" required />
+                    <v-text-field v-model="newMaterial.title" variant="outlined" prepend-icon="mdi-pencil" required />
                 </v-col>
             </v-row>
 
@@ -89,12 +89,14 @@
 
 
 <script>
+import { useMaterialStore } from '@/stores/material';
+
 export default {
     data() {
         return {
             newMaterial: {
-                userID: '',
-                titulo: '',
+                userId: '',
+                title: '',
                 description: '',
                 photoUrl: '',
                 materialType: '',
@@ -109,13 +111,14 @@ export default {
     methods: {
         addNewMaterial() {
             if (
-                this.newMaterial.titulo &&
+                this.newMaterial.title &&
                 this.newMaterial.description &&
                 this.newMaterial.materialType &&
                 this.newMaterial.location &&
                 this.newMaterial.qtyType !== null
             ) {
                 console.log('Material a ser registrado:', this.newMaterial);
+                useMaterialStore().registerMaterialToCollect(this.newMaterial);
                 this.resetNewMaterial();
             } else {
                 alert('Preencha todos os campos obrigatórios!');
@@ -123,7 +126,7 @@ export default {
         },
         resetNewMaterial() {
             this.newMaterial = {
-                userID: '',
+                userId: '',
                 titulo: '',
                 description: '',
                 photoUrl: '',

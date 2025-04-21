@@ -1,5 +1,6 @@
 import { db } from '@/firebase'
-import { getDoc, doc, updateDoc } from 'firebase/firestore'
+import Material from '@/models/material'
+import { getDoc, doc, updateDoc, setDoc } from 'firebase/firestore'
 
 export default class MaterialsController {
     async getMaterials() {
@@ -37,5 +38,14 @@ export default class MaterialsController {
         }
     }
 
+    async registerMaterialToCollect(payload) {
+        try {
+            let materialToCollect = new Material(payload)
+            const ref = doc(db, 'materials/materialsToCollect')
+            return setDoc(ref, materialToCollect.toJson())
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
 }

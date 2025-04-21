@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '@/firebase'
 import { doc, setDoc } from 'firebase/firestore'
-import User from '@/models/User'
+import User from '@/models/user'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({

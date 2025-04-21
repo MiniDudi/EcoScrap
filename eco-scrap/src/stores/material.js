@@ -44,6 +44,15 @@ export const useMaterialStore = defineStore('material', {
       } catch (error) {
         console.error('Error updating materials:', error)
       }
+    },
+
+    async registerMaterialToCollect(payload) {
+      const controller = new MaterialsController()
+      try {
+        await controller.registerMaterialToCollect(payload)
+      } catch (error) {
+        console.error('Error registering material to collect:', error)
+      }
     }
   }
 })
