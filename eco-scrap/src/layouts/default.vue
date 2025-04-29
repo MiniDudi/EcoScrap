@@ -10,7 +10,7 @@
       <v-main>
         <appBar />
         <router-view />
-        <FloatingContainer @click="handleFloatingAction" />
+        <!-- <FloatingContainer @click="handleFloatingAction" /> -->
       </v-main>
     </template>
   </v-app>
