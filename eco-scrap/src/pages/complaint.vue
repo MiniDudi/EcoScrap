@@ -8,21 +8,12 @@
             <p class="text-h6 mt-3 font-weight-light" style="font-family: Khand">Seja claro e objetivo. Especifique
                 a empresa alvo da denúncia e seus motivos. Nossa equipe trabalhará na análise e publicará sua
                 denúncia em anonimato</p>
-
-            <v-row no-gutters class="mt-5">
-                <v-col cols="12">
-                    <div class="text-subtitle-1 text-medium-emphasis">E-mail do remetente</div>
-                </v-col>
-                <v-col cols="12">
-                    <v-text-field variant="outlined"></v-text-field>
-                </v-col no-gutters>
-            </v-row>
             <v-row no-gutters>
                 <v-col cols="12">
                     <div class="text-subtitle-1 text-medium-emphasis">Título da Denúncia</div>
                 </v-col>
                 <v-col cols="12">
-                    <v-text-field variant="outlined"></v-text-field>
+                    <v-text-field v-model="title" variant="outlined"></v-text-field>
                 </v-col>
             </v-row>
             <v-row no-gutters>
@@ -30,7 +21,7 @@
                     <div class="text-subtitle-1 text-medium-emphasis">Descrição da Denúncia</div>
                 </v-col>
                 <v-col cols="12">
-                    <v-textarea variant="outlined"></v-textarea>
+                    <v-textarea v-model="body" variant="outlined"></v-textarea>
                 </v-col>
             </v-row>
 
@@ -47,11 +38,13 @@ import AppFooter from '@/components/AppFooter.vue';
 export default {
     data() {
         return {
+            title: '',
+            body: '',
         }
     },
     methods: {
         sendComplaint() {
-            alert('Denuncia enviada com sucesso!')
+            window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=prefeitura@sorocaba.sp.gov.br&su=${this.title}&body=${this.body}`, '_blank');
         }
     },
 

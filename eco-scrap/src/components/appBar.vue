@@ -72,11 +72,11 @@
                             :class="['tab-text', { 'font-weight-bold': selectedTab === 1 }]" class="cursor-pointer">
                             Material
                         </span>
-                        <v-divider vertical thickness="3"></v-divider>
+                        <!-- <v-divider vertical thickness="3"></v-divider>
                         <span @click="selectTab(2), this.$router.push('/complaint')"
                             :class="['tab-text', { 'font-weight-bold': selectedTab === 2 }]" class="cursor-pointer">
                             Denúncias
-                        </span>
+                        </span> -->
                     </div>
                 </v-card-text>
             </v-card>
