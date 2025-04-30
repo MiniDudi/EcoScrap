@@ -46,6 +46,11 @@
                         </v-col>
 
                         <v-col cols="4" class="d-flex justify-end align-center">
+                            <v-btn @click="$router.push('/materialADM')" color="#5fd136" dark
+                                append-icon="mdi-calculator">Editar Materiais</v-btn>
+                        </v-col>
+
+                        <v-col cols="4" class="d-flex justify-end align-center">
                             <v-btn @click="$router.push('/admin')" color="#5fd136" dark
                                 append-icon="mdi-calculator">Cotações</v-btn>
                         </v-col>
