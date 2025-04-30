@@ -53,6 +53,36 @@ export const useMaterialStore = defineStore('material', {
       } catch (error) {
         console.error('Error registering material to collect:', error)
       }
+    },
+
+    async deleteMaterial(payload) {
+      const controller = new MaterialsController()
+      try {
+        await controller.deleteMaterial(payload)
+        await this.getMaterials()
+      } catch (error) {
+        console.error('Error deleting material:', error)
+      }
+    },
+
+    async createNewMaterial(payload) {
+      const controller = new MaterialsController()
+      try {
+        await controller.createNewMaterial(payload)
+        await this.getMaterials()
+      } catch (error) {
+        console.error('Error creating new material:', error)
+      }
+    },
+
+    async editMaterial(payload) {
+      const controller = new MaterialsController()
+      try {
+        await controller.editMaterial(payload)
+        await this.getMaterials()
+      } catch (error) {
+        console.error('Error editing material:', error)
+      }
     }
   }
 })

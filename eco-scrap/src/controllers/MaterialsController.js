@@ -48,4 +48,61 @@ export default class MaterialsController {
         }
     }
 
+    async deleteMaterial(payload) {
+        try {
+            const ref = doc(db, 'materials/mainMaterials')
+            const ref2 = doc(db, 'materials/materialHistory')
+            const docSnap = await getDoc(ref)
+            const materials = docSnap.data().materials || []
+            const index = materials.findIndex(material => material.name === payload.name)
+            if (index > -1) materials.splice(index, 1)
+            await updateDoc(ref, { materials })
+            const docSnap2 = await getDoc(ref2)
+            const history = docSnap2.data().history || []
+            const newHistory = history.filter(item => item.name !== payload.name)
+            await updateDoc(ref2, { history: newHistory })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    async createNewMaterial(payload) {
+        try {
+            const ref = doc(db, 'materials/mainMaterials')
+            const docSnap = await getDoc(ref)
+            const materials = docSnap.data().materials || []
+            materials.push(payload)
+            await updateDoc(ref, { materials })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    async editMaterial(payload) {
+        try {
+            const ref = doc(db, 'materials/mainMaterials')
+            const ref2 = doc(db, 'materials/materialHistory')
+            const docSnap = await getDoc(ref)
+            const materials = docSnap.data().materials || []
+            const index = materials.findIndex(material => material.name === payload.name)
+            if (index > -1) materials[index] = payload
+            await updateDoc(ref, { materials })
+            const docSnap2 = await getDoc(ref2)
+            const history = docSnap2.data().history || []
+            const indexHistory = history.findIndex(item => item.name === payload.name)
+            if (indexHistory > -1) {
+                history[indexHistory].price = payload.price
+                history[indexHistory].date = new Date(Date.now() + 86400000).toISOString()
+            } else {
+                history.push({
+                    name: payload.name,
+                    price: payload.price,
+                    date: new Date(Date.now() + 86400000).toISOString()
+                })
+            }
+            await updateDoc(ref2, { history })
+        } catch (e) {
+            console.log(e)
+        }
+    }
 }
