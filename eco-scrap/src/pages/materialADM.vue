@@ -9,7 +9,7 @@
         </p>
 
         <!-- Materiais existentes -->
-        <template v-for="(material, index) in materials" :key="'existing-' + material.id">
+        <template v-for="(material, index) in materials" :key="'existing-' + material.name">
             <v-row class="mt-10">
                 <v-col cols="12" class="d-flex justify-end">
                     <v-col cols="12">
@@ -17,7 +17,7 @@
                             <v-text-field v-model="editedMaterial.name" label="Nome"></v-text-field>
                             <v-text-field v-model="editedMaterial.price" label="Preço"></v-text-field>
                             <v-text-field v-model="editedMaterial.type" label="Tipo"></v-text-field>
-                            <v-btn color="green" class="mr-2" @click="saveEditedMaterial(material.id)">Salvar</v-btn>
+                            <v-btn color="green" class="mr-2" @click="saveEditedMaterial()">Salvar</v-btn>
                             <v-btn color="grey" @click="cancelEdit">Cancelar</v-btn>
                         </template>
                         <template v-else>
@@ -25,7 +25,7 @@
                             <p>Preço: {{ material.price }}</p>
                             <p>Tipo: {{ material.type }}</p>
                             <v-btn color="blue" class="mr-2" @click="editMaterial(material)">Editar</v-btn>
-                            <v-btn color="red" @click="deleteMaterial(material.id)">Eliminar</v-btn>
+                            <v-btn color="red" @click="deleteMaterial(material)">Eliminar</v-btn>
                         </template>
                     </v-col>
                 </v-col>
@@ -74,16 +74,18 @@ export default {
                 price: '',
                 type: '',
             },
+            originalMaterial: null,
         };
     },
     methods: {
-        deleteMaterial(id) {
+        deleteMaterial(material) {
             if (confirm('Tem certeza que deseja eliminar este material?')) {
-                useMaterialStore().deleteMaterial(id);
+                useMaterialStore().deleteMaterial(material);
             }
         },
         editMaterial(material) {
-            this.editingMaterialName = material.id;
+            this.editingMaterialName = material.name;
+            this.originalMaterial = { ...material };
             this.editedMaterial = { ...material }; // cópia para edição
         },
         cancelEdit() {
@@ -93,15 +95,15 @@ export default {
                 price: '',
                 type: '',
             };
+            this.originalMaterial = null;
         },
-        saveEditedMaterial(id) {
+        saveEditedMaterial() {
             if (
                 this.editedMaterial.name &&
                 this.editedMaterial.price &&
                 this.editedMaterial.type
             ) {
-                console.log('Atualizando material:', this.editedMaterial);
-                useMaterialStore().updateMaterial(id, { ...this.editedMaterial });
+                useMaterialStore().editMaterial(this.originalMaterial ,this.editedMaterial);
                 this.cancelEdit();
             } else {
                 alert('Preencha todos os campos obrigatórios!');

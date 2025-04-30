@@ -75,10 +75,12 @@ export const useMaterialStore = defineStore('material', {
       }
     },
 
-    async editMaterial(payload) {
+    async editMaterial(originalMaterial, payload) {
       const controller = new MaterialsController()
       try {
-        await controller.editMaterial(payload)
+        console.log("passou nessa porra store");
+        
+        await controller.editMaterial(originalMaterial, payload)
         await this.getMaterials()
       } catch (error) {
         console.error('Error editing material:', error)
