@@ -39,8 +39,7 @@
                 </v-container>
                 <v-container v-else>
                     <v-row no-gutters align="center" class="d-flex">
-
-                        <v-col cols="8" class="d-flex justify-end align-center">
+                        <v-col cols="4" class="d-flex justify-end align-center">
                             <v-btn @click="$router.push('/materialRegister')" color="#5fd136" dark
                                 append-icon="mdi-plus">Solicitar Coleta</v-btn>
                         </v-col>
@@ -109,8 +108,6 @@ export default {
     data() {
         return {
             selectedTab: 0,
-            usuario: "Admin",
-            isAdmin: false,
             lastUpdate: new Date(Date.now()),
         }
     },

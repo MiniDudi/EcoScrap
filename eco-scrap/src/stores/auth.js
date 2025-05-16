@@ -32,6 +32,7 @@ export const useAuthStore = defineStore('auth', {
           name: userData.username,
           email: userData.email,
           createdAt: new Date(),
+          userType: 'user'
         });
 
         await setDoc(doc(db, 'users', newUser.id), newUser.toJson());
