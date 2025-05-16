@@ -51,7 +51,7 @@
               R$ {{ item.price }}
             </template>
             <template #item.actions="{ item }">
-              <v-btn v-if="user" @click="$router.push('/admin')" icon color="transparent" flat>
+              <v-btn v-if="user.userType == 'admin' && user" @click="$router.push('/admin')" icon color="transparent" flat>
                 <v-icon color="grey-darken-2" size="24">mdi-pencil</v-icon>
               </v-btn>
               <v-btn @click="convertMaterial(item)" icon color="transparent" flat>
