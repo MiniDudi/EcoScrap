@@ -1,9 +1,10 @@
-class User {
-    constructor({ id, name, email, createdAt } = {}) {
+    class User {
+    constructor({ id, name, email, createdAt, userType } = {}) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.createdAt = createdAt;
+        this.userType = userType;
     }
 
     static fromJson(json) {
@@ -15,7 +16,8 @@ class User {
             id: this.id,
             name: this.name,
             email: this.email,
-            createdAt: this.createdAt
+            createdAt: this.createdAt,
+            userType: this.userType
         }
     }
 }
