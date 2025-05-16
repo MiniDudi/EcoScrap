@@ -15,7 +15,7 @@
                     <v-col cols="12">
                         <template v-if="editingMaterialName === material.name">
                             <v-text-field v-model="editedMaterial.name" label="Nome"></v-text-field>
-                            <v-text-field v-model="editedMaterial.price" label="Preço"></v-text-field>
+                            <v-text-field type="number" v-model="editedMaterial.price" label="Preço"></v-text-field>
                             <v-text-field v-model="editedMaterial.type" label="Tipo"></v-text-field>
                             <v-btn color="green" class="mr-2" @click="saveEditedMaterial()">Salvar</v-btn>
                             <v-btn color="grey" @click="cancelEdit">Cancelar</v-btn>
