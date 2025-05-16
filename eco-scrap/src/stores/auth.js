@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '@/firebase'
-import { doc, setDoc } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore'
 import User from '@/models/user'
 
 export const useAuthStore = defineStore('auth', {
@@ -13,9 +13,14 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async login(email, password) {
       try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password)
-        this.user = userCredential.user
+        const userCretential = await signInWithEmailAndPassword(auth, email, password)
+        console.log(userCretential);
+        
+        const querySnapshot = await getDocs(query(collection(db, 'users'), where('email', '==', userCretential.user.email)));
+        const userDoc = querySnapshot.docs[0];
+        this.user = userDoc.exists() ? userDoc.data() : null;
       } catch (error) {
+        console.error('Erro no Login:', error);
         alert('Erro no Login: Credenciais inválidas!')
       }
     },

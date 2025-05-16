@@ -38,18 +38,18 @@
                     </v-row>
                 </v-container>
                 <v-container v-else>
-                    <v-row no-gutters align="center" class="d-flex">
-                        <v-col cols="4" class="d-flex justify-end align-center">
+                    <v-row no-gutters align="end" justify="end" class="d-flex">
+                        <v-col cols="auto" class="d-flex justify-end align-center mx-4" v-if="user.userType == 'user'">
                             <v-btn @click="$router.push('/materialRegister')" color="#5fd136" dark
                                 append-icon="mdi-plus">Solicitar Coleta</v-btn>
                         </v-col>
 
-                        <v-col cols="4" class="d-flex justify-end align-center">
+                        <v-col cols="auto" class="d-flex justify-end align-center mx-4" v-if="user.userType == 'admin'">
                             <v-btn @click="$router.push('/materialADM')" color="#5fd136" dark
                                 append-icon="mdi-calculator">Editar Materiais</v-btn>
                         </v-col>
 
-                        <v-col cols="4" class="d-flex justify-end align-center">
+                        <v-col cols="auto" class="d-flex justify-end align-center mx-4" v-if="user.userType == 'admin'">
                             <v-btn @click="$router.push('/admin')" color="#5fd136" dark
                                 append-icon="mdi-calculator">Cotações</v-btn>
                         </v-col>
@@ -100,6 +100,7 @@
     </v-container>
 </template>
 <script>
+import User from '@/models/user';
 import { useAuthStore } from '@/stores';
 import { useMaterialStore } from '@/stores/material';
 
