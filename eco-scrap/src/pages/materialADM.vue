@@ -2,10 +2,10 @@
     <v-container>
         <!-- Title -->
         <p class="text-h3 mt-5 font-weight-medium" style="font-family: Khand">
-            Registrar novo material para coleta
+           Controle de materiais
         </p>
         <p class="text-h5 mt-3 mb-5 font-weight" style="font-family: Khand">
-            Preencha os dados do material para registrá-lo
+            Aqui você poderá criar/editar os materiais que trabalhamos
         </p>
 
         <!-- Materiais existentes -->
@@ -122,7 +122,7 @@ export default {
         saveNewMaterial(material) {
             if (material.name && material.price && material.type) {
                 console.log('Salvando novo material:', material);
-                useMaterialStore().registerMaterialToCollect(material);
+                useMaterialStore().createNewMaterial(material);
                 this.cancelNewMaterial(this.newMaterials.indexOf(material));
             } else {
                 alert('Preencha todos os campos obrigatórios!');
