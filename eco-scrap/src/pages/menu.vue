@@ -1,6 +1,6 @@
 <template>
   <!-- Cards -->
-  <v-container fluid class="py-0">
+  <!-- <v-container fluid class="py-0">
     <v-row class="mt-3 mx-16">
       <v-col cols="4">
         <v-sheet @click="$router.push('/materials')"
@@ -36,12 +36,12 @@
         </v-sheet>
       </v-col>
     </v-row>
-  </v-container>
+  </v-container> -->
 
   <!-- Tabelas -->
   <v-container fluid class="pa-0 d-flex justify-space-between" align-center>
     <v-row class="justify-center">
-      <v-col cols="5" class="pa-0 mt-8">
+      <!-- <v-col cols="5" class="pa-0 mt-8">
         <v-card color="#005D98">
           <v-card-title class="text-h6 white--text py-2">
             RECICLAGEM PESO MEDIO (R$/kg)
@@ -50,7 +50,7 @@
             <template #item.price="{ item }">
               R$ {{ item.price }}
             </template>
-            <template #item.actions="{ item }">
+<template #item.actions="{ item }">
               <v-btn v-if="user.userType == 'admin' && user" @click="$router.push('/admin')" icon color="transparent" flat>
                 <v-icon color="grey-darken-2" size="24">mdi-pencil</v-icon>
               </v-btn>
@@ -58,10 +58,10 @@
                 <v-icon color="grey-darken-2" size="24">mdi-calculator</v-icon>
               </v-btn>
             </template>
-          </v-data-table>
-        </v-card>
-      </v-col>
-      <v-col cols="5" class="mt-6" style="margin-left: 40px; margin-right: 40px;">
+</v-data-table>
+</v-card>
+</v-col> -->
+      <v-col cols="6" class="mt-6" style="margin-left: 40px; margin-right: 40px;">
         <VueApexCharts type="line" ref="chart" :options="chartOptions" :series="series"></VueApexCharts>
       </v-col>
     </v-row>
@@ -176,7 +176,7 @@ export default {
 
   methods: {
     updateModal(isDialogVisible) {
-      this.isConvertDialog = isDialogVisible   
+      this.isConvertDialog = isDialogVisible
     },
     formatDateTime(date) {
       const dd = (date.getDate() < 10 ? '0' : '') + date.getDate();
@@ -215,7 +215,7 @@ export default {
       this.$refs.chart.updateOptions(
         {
           xaxis: {
-            categories: xAxisDates, 
+            categories: xAxisDates,
             labels: {
               show: true,
               rotate: -45,
@@ -231,10 +231,10 @@ export default {
           },
           series: this.series,
         },
-        false, 
-        true 
+        false,
+        true
       );
-    }
+    },
   },
 
   computed: {

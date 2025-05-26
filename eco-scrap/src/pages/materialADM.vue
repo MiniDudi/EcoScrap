@@ -2,7 +2,7 @@
     <v-container>
         <!-- Title -->
         <p class="text-h3 mt-5 font-weight-medium" style="font-family: Khand">
-           Controle de materiais
+            Controle de materiais
         </p>
         <p class="text-h5 mt-3 mb-5 font-weight" style="font-family: Khand">
             Aqui você poderá criar/editar os materiais que trabalhamos
@@ -55,7 +55,11 @@
             <v-btn color="green" @click="addEmptyMaterial">Adicionar novo material</v-btn>
         </v-row>
 
-
+        <v-row class="justify-center mt-5 mb-10">
+            <v-btn color="red-darken-1" class="mb-4" @click="resetChart">
+                Resetar Gráfico
+            </v-btn>
+        </v-row>
 
     </v-container>
 </template>
@@ -103,7 +107,7 @@ export default {
                 this.editedMaterial.price &&
                 this.editedMaterial.type
             ) {
-                useMaterialStore().editMaterial(this.originalMaterial ,this.editedMaterial);
+                useMaterialStore().editMaterial(this.originalMaterial, this.editedMaterial);
                 this.cancelEdit();
             } else {
                 alert('Preencha todos os campos obrigatórios!');
@@ -126,6 +130,20 @@ export default {
                 this.cancelNewMaterial(this.newMaterials.indexOf(material));
             } else {
                 alert('Preencha todos os campos obrigatórios!');
+            }
+        },
+        resetChart() {
+            if (confirm('Tem certeza que deseja resetar o gráfico? Esta ação não pode ser desfeita.')) {
+                useMaterialStore().resetMaterialHistory();
+                this.series = [];
+                if (this.$refs.chart) {
+                    this.$refs.chart.updateSeries([]);
+                    this.$refs.chart.updateOptions({
+                        xaxis: {
+                            categories: [],
+                        }
+                    });
+                }
             }
         }
     },

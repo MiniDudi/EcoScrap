@@ -3,7 +3,9 @@
         <p class="text-h3 mt-10 font-weight-medium" style="font-family: Khand">Materiais</p>
         <p class="text-h5 mt-3 font-weight" style="font-family: Khand">Aqui você poderá visualizar os materiais que
             trabalhamos</p>
-        <v-row class="mt-10">
+
+            
+        <!-- <v-row class="mt-10">
             <v-col cols="4">
                 <div style="border-radius: 20px; background-color: #5FD136; padding-left: 3vw; padding-right: 3vw;">
                     <v-img src="../assets/ferro.svg" cover></v-img>
@@ -53,7 +55,7 @@
                     <p>Preço por kg: <strong>R$ {{getPriceByName('ALUMÍNIO')}}</strong>.</p>
                 </v-col>
             </v-col>
-        </v-row>
+        </v-row> -->
     </v-container>
     <appFooter />
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid style="background-color: #0a1015; height: 14vh">
+    <v-container fluid style="background-color: #0a1015; height: 15vh">
         <v-row no-gutters>
             <!-- Logo -->
             <v-col cols="4" class="d-flex align-center">
@@ -21,12 +21,24 @@
             <!-- Site and Login -->
             <v-col cols="4" class="d-flex flex-column justify-center align-end">
                 <!-- Site -->
-                <v-row no-gutters class="mb-2">
-                    <v-avatar class="mr-2" color="green" size="15" />
+                <v-row no-gutters>
+                    <v-avatar class="mr-2 mt-1" color="green" size="15" />
                     <p class="site-text" style="color: white; font-family: Kdam Thmor Pro;">
                         www.ecoscrap.com.br
                     </p>
                 </v-row>
+                <v-row no-gutters class="mb-2 pr-5" v-if="user">
+                    <p class="site-text" style="color: white; font-family: Kdam Thmor Pro;">
+                        Bem-vindo {{ user.name }}!
+                    </p>
+                </v-row>
+                <v-row no-gutters class="mb-2 pr-5" v-else>
+                    <p class="site-text" style="color: white; font-family: Kdam Thmor Pro;">
+                        Bem-vindo Visitante!
+                    </p>
+                </v-row>
+
+
 
                 <!-- Login -->
                 <v-container v-if="!user">
@@ -47,11 +59,6 @@
                         <v-col cols="auto" class="d-flex justify-end align-center mx-4" v-if="user.userType == 'admin'">
                             <v-btn @click="$router.push('/materialADM')" color="#5fd136" dark
                                 append-icon="mdi-calculator">Editar Materiais</v-btn>
-                        </v-col>
-
-                        <v-col cols="auto" class="d-flex justify-end align-center mx-4" v-if="user.userType == 'admin'">
-                            <v-btn @click="$router.push('/admin')" color="#5fd136" dark
-                                append-icon="mdi-calculator">Cotações</v-btn>
                         </v-col>
 
                     </v-row>
