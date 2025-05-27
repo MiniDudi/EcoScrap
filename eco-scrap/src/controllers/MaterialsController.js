@@ -63,23 +63,14 @@ export default class MaterialsController {
 
     async editMaterial(originalMaterial, payload) {
         try {
-            console.log("passou nessa porra Controller", payload);
             
-            console.log("passou nessa porra Controller", payload);
             const ref = doc(db, 'materials/mainMaterials')
             const docSnap = await getDoc(ref)
             const materials = docSnap.data().materials || []
-            console.log("Materials", materials)
             const index = materials.findIndex(material => material.name === originalMaterial.name)
-            console.log("Index", index)
-            console.log("Antes", materials)
-            console.log("Antes", JSON.stringify(materials))
 
             if (index > -1) materials[index] = payload
-            console.log("Depois", materials)
-            console.log("Depois", JSON.stringify(materials))
             await updateDoc(ref, { materials })
-            console.log("Atualizou")
         } catch (e) {
             console.log(e)
         }

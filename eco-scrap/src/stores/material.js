@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import MaterialsController from '@/controllers/MaterialsController'
-import { doc, collection, deleteDoc } from 'firebase/firestore'
+import { doc, collection, deleteDoc, getDoc, updateDoc } from 'firebase/firestore'
 import { db } from '@/firebase' // Verifique o caminho correto para seu firebase.js
 
 export const useMaterialStore = defineStore('material', {
@@ -82,6 +82,9 @@ export const useMaterialStore = defineStore('material', {
       try {
         await controller.editMaterial(originalMaterial, payload)
         await this.getMaterials()
+        console.log(this.materials);
+        
+        await this.updateMaterials({ materials: this.materials })
       } catch (error) {
         console.error('Error editing material:', error)
       }
@@ -89,10 +92,15 @@ export const useMaterialStore = defineStore('material', {
 
     async resetMaterialHistory() {
       try {
-        const docRef = doc(collection(db, 'materialHistory'), 'history');
-        await deleteDoc(docRef);
-        this.history = [];
-        console.log('Histórico de materiais resetado com sucesso');
+        const ref = doc(db, 'materials/mainMaterials')
+        const ref2 = doc(db, 'materials/materialHistory')
+        const materials = (await getDoc(ref)).data().materials
+        const history = materials.map(material => ({
+          date: new Date().toISOString(),
+          price: materials,
+        }))
+        await updateDoc(ref, { materials })
+        await updateDoc(ref2, { history })
       } catch (error) {
         console.error('Erro ao resetar histórico de materiais:', error);
       }
