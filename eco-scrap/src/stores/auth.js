@@ -6,7 +6,7 @@ import User from '@/models/user'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    user: null,
+    user: new User(),
     loading: true,
   }),
 

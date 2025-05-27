@@ -41,7 +41,7 @@
 
 
                 <!-- Login -->
-                <v-container v-if="!user">
+                <v-container v-if="!user.email">
                     <v-row no-gutters align="center" class="d-flex">
                         <v-col cols="12" class="d-flex justify-end align-center">
                             <v-btn @click="$router.push('/login')" color="#5fd136" dark

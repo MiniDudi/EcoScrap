@@ -90,6 +90,7 @@
 
 <script>
 import { useMaterialStore } from '@/stores/material';
+import emailjs from 'emailjs-com';
 
 export default {
     data() {
@@ -117,9 +118,26 @@ export default {
                 this.newMaterial.location &&
                 this.newMaterial.qtyType !== null
             ) {
-                console.log('Material a ser registrado:', this.newMaterial);
-                useMaterialStore().registerMaterialToCollect(this.newMaterial);
-                this.resetNewMaterial();
+                const templateParams = {
+                    to_email: 'duduhnpinese@gmail.com',
+                    title: this.newMaterial.title,
+                    description: this.newMaterial.description,
+                    materialType: this.newMaterial.materialType,
+                    location: this.newMaterial.location,
+                    qtyType: this.newMaterial.qtyType,
+                    qty: this.newMaterial.qty ?? 'Não informado',
+                };
+
+                emailjs.send('service_2609e8o', 'template_6j5iqqb', templateParams, 'G0cbV-73ACPymoB2h')
+                    .then((response) => {
+                        console.log('E-mail enviado com sucesso!', response.status, response.text);
+                        alert('Material registrado e e-mail enviado com sucesso!');
+                        useMaterialStore().registerMaterialToCollect(this.newMaterial);
+                        this.resetNewMaterial();
+                    }, (err) => {
+                        console.error('Falha ao enviar o e-mail:', err);
+                        alert('Erro ao enviar o e-mail. Tente novamente.');
+                    });
             } else {
                 alert('Preencha todos os campos obrigatórios!');
             }

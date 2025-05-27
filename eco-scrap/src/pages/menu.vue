@@ -51,7 +51,8 @@
               R$ {{ item.price }}
             </template>
 <template #item.actions="{ item }">
-              <v-btn v-if="user.userType == 'admin' && user" @click="$router.push('/admin')" icon color="transparent" flat>
+              <v-btn v-if="user.userType == 'admin' && user" @click="$router.push('/admin')" icon color="transparent"
+                flat>
                 <v-icon color="grey-darken-2" size="24">mdi-pencil</v-icon>
               </v-btn>
               <v-btn @click="convertMaterial(item)" icon color="transparent" flat>
@@ -61,8 +62,8 @@
 </v-data-table>
 </v-card>
 </v-col> -->
-      <v-col cols="6" class="mt-6" style="margin-left: 40px; margin-right: 40px;">
-        <VueApexCharts type="line" ref="chart" :options="chartOptions" :series="series"></VueApexCharts>
+      <v-col cols="12" class="mt-6">
+        <VueApexCharts type="line" ref="chart" :options="chartOptions" :series="series" width="100%" height="600" />
       </v-col>
     </v-row>
   </v-container>
@@ -97,7 +98,6 @@ export default {
       ],
       chartOptions: {
         chart: {
-          height: 350,
           type: 'line',
           zoom: {
             enabled: false

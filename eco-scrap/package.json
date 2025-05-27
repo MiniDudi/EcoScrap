@@ -12,6 +12,7 @@
     "apexcharts": "^3.54.1",
     "chart.js": "^4.4.5",
     "core-js": "^3.37.1",
+    "emailjs-com": "^3.2.0",
     "firebase": "^10.13.2",
     "roboto-fontface": "*",
     "vue": "^3.4.31",
