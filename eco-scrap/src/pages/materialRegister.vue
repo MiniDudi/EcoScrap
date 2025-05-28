@@ -119,7 +119,7 @@ export default {
                 this.newMaterial.qtyType !== null
             ) {
                 const templateParams = {
-                    to_email: 'duduhnpinese@gmail.com',
+                    to_email: 'rneoxplays@hotmail.com',
                     title: this.newMaterial.title,
                     description: this.newMaterial.description,
                     materialType: this.newMaterial.materialType,
@@ -128,7 +128,7 @@ export default {
                     qty: this.newMaterial.qty ?? 'Não informado',
                 };
 
-                emailjs.send('service_2609e8o', 'template_6j5iqqb', templateParams, 'G0cbV-73ACPymoB2h')
+                emailjs.send('service_wiemdld', 'template_kmzw6xg', templateParams, 'Qgn42jj7XGdnx-Dif')
                     .then((response) => {
                         console.log('E-mail enviado com sucesso!', response.status, response.text);
                         alert('Material registrado e e-mail enviado com sucesso!');
