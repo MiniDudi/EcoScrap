@@ -99,6 +99,7 @@ export default {
       lastUpdate: new Date(Date.now()),
       selectedTab: 0,
       localMaterials: [],
+      priceChanges: [],
       selectedMaterial: null,
       isConvertDialog: false,
       headers: [
@@ -201,7 +202,7 @@ export default {
 
         this.priceChanges.push({
           name: item.name,
-          currentPrice: last.toFixed(2),
+          currentPrice: variation.toFixed(2),
           up: variation > 0
         });
       });
