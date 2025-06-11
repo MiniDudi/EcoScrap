@@ -62,8 +62,18 @@
 </v-data-table>
 </v-card>
 </v-col> -->
-      <v-col cols="12" class="mt-6">
+      <v-col cols="9" class="ma-6">
         <VueApexCharts type="line" ref="chart" :options="chartOptions" :series="series" width="100%" height="600" />
+      </v-col>
+      <v-col cols="2" class="ma-6">
+        <div v-for="item in priceChanges" :key="item.name" class="my-16 d-flex align-center">
+          <div class="mr-2" style="width: 12px; height: 12px;"
+            :style="{ backgroundColor: item.up ? 'green' : 'red', borderRadius: '50%' }"></div>
+          <span class="font-weight-bold">{{ item.name }}</span>
+          <span class="ml-auto">R$: {{ item.currentPrice }}</span>
+          <v-icon color="green" v-if="item.up" class="ml-2">mdi-arrow-up</v-icon>
+          <v-icon color="red" v-else class="ml-2">mdi-arrow-down</v-icon>
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -80,6 +90,7 @@ import VueApexCharts from 'vue3-apexcharts'
 export default {
   components: {
     VueApexCharts,
+    ConvertDialog
   },
   data() {
     return {
@@ -172,9 +183,29 @@ export default {
     await useMaterialStore().getHistory()
     console.log(this.history);
     this.configChart()
+    this.calculatePriceChanges()
   },
 
   methods: {
+    calculatePriceChanges() {
+      const data = this.series;
+      this.priceChanges = [];
+
+      data.forEach(item => {
+        const values = item.data;
+        if (values.length < 2) return;
+
+        const last = parseFloat(values[values.length - 1]);
+        const prev = parseFloat(values[values.length - 2]);
+        const variation = last - prev;
+
+        this.priceChanges.push({
+          name: item.name,
+          currentPrice: last.toFixed(2),
+          up: variation > 0
+        });
+      });
+    },
     updateModal(isDialogVisible) {
       this.isConvertDialog = isDialogVisible
     },
