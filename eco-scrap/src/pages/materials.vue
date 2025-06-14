@@ -79,6 +79,9 @@
         </v-col>
     </v-container>
     <appFooter />
+
+    <ConvertDialog @updateModalState="updateModal" :isDialogVisible="isConvertDialog" :material="selectedMaterial" />
+
 </template>
 <script>
 import AppFooter from '@/components/AppFooter.vue';
@@ -90,6 +93,9 @@ export default {
         return {
             selectedTab: 1,
             lastUpdate: new Date(Date.now()),
+            isConvertDialog: false,
+            selectedMaterial: null,
+
             headers: [
                 { title: 'Nome', value: 'name' },
                 { title: 'Tipo', value: 'type' },
@@ -137,6 +143,9 @@ export default {
             console.log(this.selectedMaterial);
 
             this.isConvertDialog = true
+        },
+        updateModal(isDialogVisible) {
+            this.isConvertDialog = isDialogVisible
         },
     },
     computed: {
